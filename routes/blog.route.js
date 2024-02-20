@@ -1,9 +1,9 @@
 const express = require('express');
-const {createBlog,getBlogs} = require('../controller/blog.controller');
-
 const router = express.Router();
-router.get("/blogs",getBlogs );
+const { createBlogSchema } = require('./../validations/blog.validation');
+const validate = require('./../middlewares/validate');
+const { createBlog, getBlogs } = require('./../controller/blog.controller');
+router.get('/blogs', getBlogs);
+router.post('/blog', validate(createBlogSchema), createBlog);
 
-router.post("/blog", createBlog);
-
-module.exports  = router;
+module.exports = router;

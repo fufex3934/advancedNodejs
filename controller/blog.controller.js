@@ -1,31 +1,24 @@
-const Blog = require('../models/blog.model');
-const {createBlogSchema} = require('../validations/blog.validation');
-
+const Blog = require('./../models/blog.model');
+const createBlog = async (req, res) => {
+  try {
+    await Blog.create(req.body);
+    res.send({ success: true, message: 'Blog created successfyly' });
+  } catch (error) {
+    console.log(error);
+    res.send({ error: true, message: error.details });
+  }
+};
 
 const getBlogs = async (req, res) => {
-    try {
-      const blogs = await Blog.find({});
-      res.send({ blogs });
-    } catch (error) {
-      res.status(500).send({ error: true, message: "error occurred" });
-    }
+  try {
+    const blogs = await Blog.find({});
+    res.json(blogs);
+  } catch (error) {
+    res.end({ error: true, message: error.message });
   }
+};
 
-  const createBlog = async (req, res) => {
-    //create a blog
-    
-    try {
-        const value = await createBlogSchema.body.validateAsync(req.body);
-      await Blog.create(value);
-      res
-        .send({ blogs: true, message: "blog created successfully" })
-        .catch((error) => console.log(error));
-    } catch (error) {
-      res.status(500).send({ error: true, message: "error occured" });
-    }
-  }
-
-  module.exports = {
-    createBlog,
-    getBlogs,
-  }
+module.exports = {
+  createBlog,
+  getBlogs,
+};

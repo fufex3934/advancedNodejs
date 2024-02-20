@@ -10,5 +10,6 @@ require('dotenv').config();
 
  module.exports = {
     port:envVars.PORT,
-    dbConnection: envVars.DB_CONNECTION
+    dbConnection: envVars.DB_CONNECTION,
+    env:envVars.NODE_ENV,
  }
