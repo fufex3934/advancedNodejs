@@ -1,22 +1,14 @@
 const Blog = require('./../models/blog.model');
-const createBlog = async (req, res) => {
-  try {
-    await Blog.create(req.body);
-    res.send({ success: true, message: 'Blog created successfyly' });
-  } catch (error) {
-    console.log(error);
-    res.send({ error: true, message: error.details });
-  }
-};
+const catchAsync = require('./../utils/catchAsync');
+const createBlog = catchAsync(async (req, res) => {
+  await Blog.create(req.body);
+  res.send({ success: true, message: 'Blog created successfyly' });
+});
 
-const getBlogs = async (req, res) => {
-  try {
-    const blogs = await Blog.find({});
-    res.json(blogs);
-  } catch (error) {
-    res.end({ error: true, message: error.message });
-  }
-};
+const getBlogs = catchAsync(async (req, res) => {
+  const blogs = await Blog.find({});
+  res.json(blogs);
+});
 
 module.exports = {
   createBlog,
