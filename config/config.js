@@ -1,15 +1,16 @@
-require('dotenv').config();
- 
- const envVarSchema = require('../validations/env.validation')
+require("dotenv").config();
 
- const {value:envVars,error} = envVarSchema.validate(process.env);
+const envVarSchema = require("../validations/env.validation");
 
- if (error){
-    console.log(error);
- }
+const { value: envVars, error } = envVarSchema.validate(process.env);
+const logger = require("./logger");
 
- module.exports = {
-    port:envVars.PORT,
-    dbConnection: envVars.DB_CONNECTION,
-    env:envVars.NODE_ENV,
- }
+if (error) {
+  logger.error(error);
+}
+
+module.exports = {
+  port: envVars.PORT,
+  dbConnection: envVars.DB_CONNECTION,
+  env: envVars.NODE_ENV,
+};
