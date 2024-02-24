@@ -1,13 +1,16 @@
-const joi = require('joi');
-
+const Joi = require('joi');
 const loginSchema = {
-    body: joi.object().keys({
-        
-        email:joi.string().email().required(),
-        password: joi.string().required(),
-    })
+  body: Joi.object().keys({
+    email: Joi.string().email().required(),
+    password: Joi.string().required(),
+  }),
 };
-
+const refreshTokenSchema = {
+  body: Joi.object().keys({
+    refreshToken: Joi.string().required(),
+  }),
+};
 module.exports = {
-    loginSchema,
-}
+  loginSchema,
+  refreshTokenSchema,
+};
