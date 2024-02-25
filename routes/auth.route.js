@@ -3,6 +3,7 @@ const router = express.Router();
 const validate = require('./../middlewares/validate');
 const { userValidation, authValidation } = require('./../validations');
 const { authController } = require('./../controllers');
+const { authLimiter } = require('./../middlewares/authLimiter');
 router.post(
   '/auth/register',
   validate(userValidation.createUserSchema),
@@ -11,6 +12,7 @@ router.post(
 
 router.post(
   '/auth/login',
+  authLimiter,
   validate(authValidation.loginSchema),
   authController.login
 );
